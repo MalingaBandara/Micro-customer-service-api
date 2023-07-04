@@ -10,7 +10,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StandardResponseEntity {
+
     private int code;
     private String message;
     private Object data;
+
 }

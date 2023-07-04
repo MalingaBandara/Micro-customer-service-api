@@ -27,6 +27,7 @@ public class CustomerController {
                 HttpStatus.CREATED
         );
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<StandardResponseEntity> findCustomer(@PathVariable String id){
         return new ResponseEntity<>(
@@ -34,6 +35,7 @@ public class CustomerController {
                 HttpStatus.OK
         );
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<StandardResponseEntity> deleteCustomer(@PathVariable String id){
         customerService.deleteCustomer(id);
@@ -59,4 +61,5 @@ public class CustomerController {
                 HttpStatus.OK
         );
     }
+
 }
