@@ -1,19 +1,25 @@
 package com.asd.customerserviceapi.service.impl;
 
 import com.asd.customerserviceapi.dto.request.CustomerRequestDto;
+import com.asd.customerserviceapi.dto.response.AddressResponseDto;
 import com.asd.customerserviceapi.dto.response.CustomerResponseDto;
 import com.asd.customerserviceapi.entity.Customer;
 import com.asd.customerserviceapi.repo.CustomerRepo;
 import com.asd.customerserviceapi.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
 @Service
-public class CustomerServiceImpl implements CustomerService {
+public class  CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepo customerRepo;
+
+    @Autowired
+    private WebClient webClient;
 
     @Autowired
     public CustomerServiceImpl(CustomerRepo customerRepo) {
@@ -36,7 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
         return new CustomerResponseDto(
                 selectedCustomer.get().getId(),
                 selectedCustomer.get().getName(),
-                selectedCustomer.get().getAddressId(),
+                getAddressData( selectedCustomer.get().getAddressId() ),
                 selectedCustomer.get().getSalary()
 
         );
@@ -66,10 +72,20 @@ public class CustomerServiceImpl implements CustomerService {
              ) {
             list.add(
                     new CustomerResponseDto(
-                            c.getId(),c.getName(), c.getAddressId(), c.getSalary()
+                            c.getId(),c.getName(), getAddressData( c.getAddressId() ), c.getSalary()
                     )
             );
         }
         return list;
     }
+
+
+    private AddressResponseDto getAddressData ( String addressId ) {
+
+        Mono<AddressResponseDto> response = webClient.get().uri( "/addresses/"+addressId ).retrieve().bodyToMono( AddressResponseDto.class );
+
+        return response.block();
+    }
+
+
 }

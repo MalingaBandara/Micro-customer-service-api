@@ -5,16 +5,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-public class CustomerResponseDto {
+public class AddressResponseDto {
+
     private String id;
 
-    private String name;
+    private String country;
 
-    private AddressResponseDto address;
+    private String city;
 
-    private double salary;
 }
