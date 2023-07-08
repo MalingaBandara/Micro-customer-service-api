@@ -23,7 +23,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void saveCustomer(CustomerRequestDto dto) {
         customerRepo.save(
-                new Customer(dto.getId(), dto.getName(), dto.getSalary())
+                new Customer( dto.getId(), dto.getName(), dto.getAddressId(), dto.getSalary() )
         );
     }
 
@@ -36,7 +36,9 @@ public class CustomerServiceImpl implements CustomerService {
         return new CustomerResponseDto(
                 selectedCustomer.get().getId(),
                 selectedCustomer.get().getName(),
+                selectedCustomer.get().getAddressId(),
                 selectedCustomer.get().getSalary()
+
         );
     }
 
@@ -64,7 +66,7 @@ public class CustomerServiceImpl implements CustomerService {
              ) {
             list.add(
                     new CustomerResponseDto(
-                            c.getId(),c.getName(),c.getSalary()
+                            c.getId(),c.getName(), c.getAddressId(), c.getSalary()
                     )
             );
         }

@@ -19,6 +19,8 @@ public class Customer {
 
     private String name;
 
+    private String addressId;
+
     private double salary;
 
 }

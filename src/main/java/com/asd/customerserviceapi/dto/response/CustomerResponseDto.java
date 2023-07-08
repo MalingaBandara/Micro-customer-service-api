@@ -11,6 +11,10 @@ import lombok.Setter;
 @Setter
 public class CustomerResponseDto {
     private String id;
+
     private String name;
+
+    private String addressId;
+
     private double salary;
 }
